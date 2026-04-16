@@ -19,6 +19,7 @@ export async function getFolderById(id) {
     [id]
   );
   const folder = folderRows[0];
+  if (!folder) return null;
 
   const { rows: files } = await db.query(
     `SELECT * FROM files WHERE folder_id = $1`,
