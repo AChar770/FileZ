@@ -7,3 +7,12 @@ export async function createFile(name, size, folder_id) {
   );
   return rows[0];
 }
+
+export async function getFiles() {
+  const { rows } = await db.query(
+    `SELECT files.*, folders.name AS folder_name
+     FROM files
+     JOIN folders ON folders.id = files.folder_id`
+  );
+  return rows;
+}
