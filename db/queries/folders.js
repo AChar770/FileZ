@@ -7,3 +7,8 @@ export async function createFolder(name) {
   );
   return rows[0];
 }
+
+export async function getFolders() {
+  const { rows } = await db.query(`SELECT * FROM folders`);
+  return rows;
+}
