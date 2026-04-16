@@ -12,3 +12,18 @@ export async function getFolders() {
   const { rows } = await db.query(`SELECT * FROM folders`);
   return rows;
 }
+
+export async function getFolderById(id) {
+  const { rows: folderRows } = await db.query(
+    `SELECT * FROM folders WHERE id = $1`,
+    [id]
+  );
+  const folder = folderRows[0];
+
+  const { rows: files } = await db.query(
+    `SELECT * FROM files WHERE folder_id = $1`,
+    [id]
+  );
+  folder.files = files;
+  return folder;
+}
